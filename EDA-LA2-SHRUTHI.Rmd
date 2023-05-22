@@ -1,0 +1,157 @@
+---
+title: "eda la2"
+author: "shruthi s rao 1nt20is158"
+date: "2023-05-22"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r}
+library(readxl)
+telecom <- read_excel("C:/Users/user/Downloads/telecom.xlsx")
+View(telecom)
+summary(telecom)
+str(telecom)
+library(ggplot2)
+ggplot(telecom,aes(x=gender,y=MonthlyCharges))+geom_point()
+ggplot(telecom,aes(x=TotalCharges,y=PaymentMethod))+geom_point()
+library(ggplot2)
+ggplot(telecom,aes(x=gender,y=Partner))+geom_line()
+curve(x^3-5*x,from=-4,to=4)
+ggplot(telecom,aes(x=gender,y=MonthlyCharges))+geom_line()+geom_point()
+##plot a user defined function
+myfun<-function(xvar){
+  1/( 1+exp(-xvar+10))
+}
+curve(myfun(x),from=0,to=20)
+##add a line
+curve(1 - myfun(x),add=TRUE,col="green")
+library(ggplot2)
+ggplot(data.frame(x=c(0,20)),aes(x=x))+stat_function(fun=myfun,geom="line")
+library(gcookbook)
+ggplot(telecom,aes(x=gender,y=PaymentMethod))+geom_col()
+library(gcookbook)
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges))+geom_col()
+library(ggplot2)
+ggplot(telecom,aes(x=gender,y=Partner))+geom_boxplot()
+
+library(ggplot2)
+ggplot(telecom,aes(x=gender,y=MonthlyCharges))+geom_boxplot()
+
+library(ggplot2)
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges))+geom_boxplot()
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges))+geom_col(colour="darkblue")
+library(gcookbook)
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges))+geom_col(position="dodge",colour="pink")
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges, fill=InternetService ))+geom_col(position="dodge")
+ggplot(telecom,aes(x=PaymentMethod,y=MonthlyCharges,fill=InternetService))+geom_col(colour="purple")+scale_fill_brewer(palette="Pastel1")
+
+ggplot(telecom,aes(x=gender,y=PaymentMethod,fill=InternetService))+geom_col(position="dodge",colour="orange")+scale_fill_brewer(palette="Pastel1")
+                     
+ggplot(telecom,aes(x=InternetService,y=gender,fill=PaymentMethod))+geom_col()
+ggplot(telecom,aes(x=reorder(PaymentMethod,gender),y=gender,fill=InternetService))+geom_col(colour="pink")+scale_fill_manual(values=c('#669933','#FFCC66',"#A4A4A4"))+xlab("State")
+ggplot(telecom,aes(x=reorder(PaymentMethod,gender),y=gender,fill=InternetService))+geom_col(position="identity")
+#adjusting bar width and spacing
+library(gcookbook)
+ggplot(telecom,aes(x=gender,y=InternetService))+geom_col()
+ggplot(telecom,aes(x=gender,y=InternetService))+geom_col(width=0.5)
+ggplot(telecom,aes(x=gender,y=InternetService))+geom_col(width=0.8)
+ggplot(telecom,aes(x=tenure,y=PhoneService,fill=MonthlyCharges))+geom_col(width=0.5,position=position_dodge(0.5))
+ggplot(telecom,aes(x=tenure,y=PhoneService,fill=InternetService))+geom_col()+guides(fill=guide_legend(reverse=TRUE))
+ggplot(telecom,aes(x=MultipleLines,y=PhoneService,fill=InternetService))+geom_col(position=position_stack(reverse=TRUE))+guides(fill=guide_legend(reverse=TRUE))
+##stacked bar graphs
+library(gcookbook)
+ggplot(telecom,aes(x=gender,y=InternetService,fill=PhoneService))+geom_col(position="fill")
+ggplot(telecom,aes(x=tenure,y=InternetService,fill=PhoneService))+geom_col(position="dodge")+geom_text(aes(label=InternetService),colour="white",size=3,vjust=1.5,position=position_dodge(.9))
+library(gcookbook)
+telecom<-telecom[1:25,]
+ggplot(telecom,aes(x=tenure,y=gender))+geom_point()
+ggplot(telecom,aes(x=tenure,y=reorder(PaymentMethod,gender)))+geom_point(tenure=3)+theme_bw()+
+  theme( panel.grid.major.x=element_blank(),panel.grid.minor.x=element_blank(),panel.grid.major.y=element_line(colour="grey60",linetype="dashed"))
+ggplot(telecom,aes(x=reorder(tenure,gender),y=InternetService))+geom_point(size=3)+theme_bw()+theme( panel.grid.major.y=element_blank(),panel.grid.minor.y=element_blank(),panel.grid.major.x=element_line(colour="grey60",linetype="dashed"))
+ggplot(telecom,aes(x=PhoneService,y=InternetService))+geom_line()+geom_point()
+library(gcookbook)
+ggplot(telecom,aes(x=tenure,y=gender,colour=PhoneService))+geom_line()
+ggplot(telecom,aes(x=tenure,y=gender,linetype=PhoneService))+geom_line()   
+ggplot(telecom,aes(x=factor(PaymentMethod),y=SeniorCitizen,colour=gender,group=gender))+geom_line()
+ggplot(telecom,aes(x=gender,y=OnlineBackup,fill=OnlineSecurity))+geom_line()+geom_point(size=4,shape=21)
+ggplot(telecom,aes(x=gender,y=OnlineBackup,shape=Dependents))+geom_line()+geom_point(size=4)
+ggplot(telecom,aes(x=StreamingMovies,y=StreamingTV))+geom_point(shape=21)       
+ggplot(telecom,aes(x=Contract,y=PaymentMethod))+geom_point(shape=11)                          
+ggplot(telecom,aes(x=Contract,y=PaymentMethod))+geom_point()+geom_rug()
+ggplot(telecom,aes(x=MonthlyCharges))+geom_histogram()
+ggplot(telecom,aes(x=Contract))+geom_line(stat="density")+expand_limits(y=0)
+ggplot(telecom,aes(x=Contract))+geom_line(stat="density")+geom_line(stat="density",adjust=.25,colour="red")+geom_line(stat="density",adjust=2,colour="blue")
+library(MASS)
+ggplot(telecom,aes(x=factor(TotalCharges),y=TechSupport))+geom_boxplot()
+library(gcookbook)
+telecom<-ggplot(telecom,aes(x=PaymentMethod,y=TotalCharges))
+telecom+geom_violin()
+telecom+geom_violin(adjust=2)
+telecom+geom_violin()+geom_boxplot(width=.1,fill="black",outlier.colour=NA)+stat_summary(fun.y=median,geom="point",fill="white",shape=21,size=1.5)
+telecom+geom_violin(adjust=.5)
+str(telecom)
+seq(telecom)
+names(telecom)
+class(telecom)
+typeof(telecom)
+ls()
+unique(telecom$PaymentMethod)
+nrow(telecom)
+ncol(telecom)
+cumsum(telecom$gender)
+cumprod(telecom$tenure)
+cummin(telecom$OnlineSecurity)
+cummax(telecom$TotalCharges)
+length(telecom)
+rev(telecom$Partner)
+rep(telecom)
+sd(telecom$MonthlyCharges)
+median(telecom$MonthlyCharges)
+mean(telecom$MonthlyCharges)
+sum(telecom$TotalCharges)
+telecom$customerID
+formatC(telecom$Dependents)
+head(telecom)
+tail(telecom)
+telecom$InternetService
+is.data.frame(telecom)
+is.name(telecom)
+identity(telecom$gender)
+binom.test(29,200,.21)
+pbinom(2,5,.5)
+dbinom(0,5,.5)
+prop.test(29,200,.21)
+diff(telecom$TotalCharges)
+pmax(telecom$TotalCharges)
+pmin(telecom$TotalCharges)
+summary(telecom$customerID)
+summary(telecom$gender)
+summary(telecom$SeniorCitizen)
+summary(telecom$Partner)
+summary(telecom$Dependents)
+summary(telecom$MultipleLines)
+dim(telecom)
+summary(telecom$Contract)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
